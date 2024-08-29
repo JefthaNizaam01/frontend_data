@@ -1,19 +1,19 @@
 <template>
   <div class="about">
+    <div class="about-image">
+      <img src="https://jefthanizaam01.github.io/favoriteimages/images/timeclock.jpg" alt="Elegant Watch">
+    </div>
     <div class="about-content">
       <header class="about-header">
         <h1>About Us</h1>
+        <h2>Where Every Second Counts.</h2>
       </header>
-      <section>
-        <p class="retro-text">
-          Welcome to Retro Vision, your ultimate destination for classic PS2 games from the 2000s! 
-          Our mission is to bring back the nostalgia and excitement of the golden era of gaming. 
-          Whether you're a longtime fan or discovering these classics for the first time, we have a collection that caters to all enthusiasts.
+      <section class="about-text">
+        <p>
+          At Timeless, we believe that every moment is precious. Our e-commerce store is dedicated to more than just selling watches; we are committed to celebrating the art of timekeeping. In a world where time seems to slip through our fingers faster than we realize, Timeless serves as a reminder to cherish each fleeting second.
         </p>
-        <p class="retro-text">
-          At Retro Vision, we believe in providing high-quality products and exceptional customer service. 
-          Each game is carefully inspected and tested to ensure you receive the best gaming experience possible. 
-          Dive into our collection and relive the magic of the past!
+        <p>
+          At Timeless, we understand that time is one of the most valuable resources we have. We strive to offer you watches that are more than just accessories—they are symbols of the moments that shape our lives. Discover watches that resonate with your style and appreciate the beauty of time with Timeless. 
         </p>
       </section>
     </div>
@@ -23,82 +23,108 @@
 <style scoped>
 .about {
   display: flex;
-  justify-content: center;
   align-items: center;
   min-height: 100vh;
-  width: 100%; 
-  background: url('https://jefthanizaam01.github.io/favoriteimages/images/arcade.jpg') no-repeat center center; 
-  background-size: cover; 
-  background-color: #fffcec; 
+  width: 100%;
+  background: linear-gradient(to bottom right, #3d3b39, #ece7e2);
+  padding: 40px;
+}
+
+.about-image {
+  flex: 1;
+  max-width: 50%;
+  margin-right: 30px;
+}
+
+.about-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
 .about-content {
-  text-align: center;
-  padding: 10px;
-   
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); 
-  border-radius: 10px; 
- 
-  position: relative;
-  top: -40px;
-  width: 60%; 
+  flex: 1.5;
+  padding: 40px;
+  background-color: rgba(218, 208, 208, 0.95);
+  border-radius: 15px;
+  animation: fadeIn 2s ease-in-out;
+  border: 1px solid #e0dcd7;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
 .about-header {
-  margin-bottom: 20px;
+  margin-bottom: 36px;
+  border-bottom: 2px solid #ddd;
+  padding-bottom: 20px;
+  text-align: center;
 }
 
 .about-header h1 {
-  font-size: 5.5em;
-  font-family: 'VT323', monospace;
-  margin: 0;
-  color: #ff0000; 
-  text-shadow: 0 0 5px rgba(255, 0, 0, 0.8), 0 0 10px rgba(255, 0, 0, 0.8); 
-  animation: flicker 3.5s infinite; 
-}
-
-.retro-text {
-  font-family: 'Press Start 2P', cursive;
-  font-size: 1.4em;
-  line-height: 1.6;
-  color: white; 
-  text-shadow: 0 0 4px red, 0 0 5px red; 
+  font-size: 50px;
+  font-weight: bold;
   margin-bottom: 15px;
+  font-family: 'Playfair Display', serif;
+  color: #847272;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  animation: textGlow 2s ease-in-out infinite alternate;
 }
 
-.about-footer {
-  margin-top: 20px;
+.about-header h2 {
+  font-size: 30px;
+  font-weight: 300;
+  color: #666;
+  margin-bottom: 40px;
+  font-family: 'Garamond', serif;
+  font-style: italic;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-.about-footer p {
-  font-size: 0.9em;
-  color: #888; 
+.about-text {
+  text-align: justify;
 }
 
-@keyframes pulse {
+.about-text p {
+  margin-bottom: 20px;
+  font-size: 18px;
+  line-height: 1.6;
+  color: #555;
+  font-family: 'Georgia', serif;
+}
+
+@keyframes fadeIn {
   0% {
-    transform: scale(1);
-    opacity: 1;
-  }
-  50% {
-    transform: scale(1.05);
-    opacity: 0.9;
+    opacity: 0;
+    transform: translateY(20px);
   }
   100% {
-    transform: scale(1);
     opacity: 1;
+    transform: translateY(0);
   }
 }
 
-@keyframes flicker {
+@keyframes textGlow {
   0% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.6;
+    text-shadow: 0 0 5px #ccc, 0 0 10px #aaa, 0 0 15px #888;
   }
   100% {
-    opacity: 1;
+    text-shadow: 0 0 10px #fff, 0 0 20px #ccc, 0 0 30px #aaa;
+  }
+}
+
+@media (max-width: 768px) {
+  .about {
+    flex-direction: column;
+  }
+
+  .about-image {
+    max-width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .about-content {
+    width: 100%;
   }
 }
 </style>

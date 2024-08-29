@@ -370,7 +370,7 @@ body {
   font-family: 'Playfair Display', serif;
   position: absolute;
   top: 45%;
-  left: 5.4%; 
+  left: 5.%; 
 }
 
 .watch-container {
