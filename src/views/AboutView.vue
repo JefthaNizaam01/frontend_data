@@ -2,40 +2,40 @@
   <div class="about">
     <div class="about-image">
       <img src="https://jefthanizaam01.github.io/favoriteimages/images/timeclock.jpg" alt="Elegant Watch">
+      <div class="clock">
+        <div class="second-hand"></div>
+      </div>
     </div>
     <div class="about-content">
       <header class="about-header">
         <h1 class="animated-heading">About Us</h1>
         <h2 class="animated-heading">
-          <h2 class="animated-heading">
-            <span class="space-before">W</span>
-            <span class="space-before">h</span>
-            <span class="space-before">e</span>
-            <span class="space-before">r</span>
-            <span class="space-before">e</span>
-            <span class="space-mid"></span>
-            <span class="space-before">E</span>
-            <span class="space-before">v</span>
-            <span class="space-before">e</span>
-            <span class="space-before">r</span>
-            <span class="space-before">y</span>
-            <span class="space-mid"></span> 
-            <span class="space-before">S</span>
-            <span class="space-before">e</span>
-            <span class="space-before">c</span>
-            <span class="space-before">o</span>
-            <span class="space-before">n</span>
-            <span class="space-before">d</span>
-            <span class="space-mid"></span> 
-            <span class="space-before">C</span>
-            <span class="space-before">o</span>
-            <span class="space-before">u</span>
-            <span class="space-before">n</span>
-            <span class="space-before">t</span>
-            <span class="space-before">s</span>
-            <span class="space-end">.</span> 
-          </h2>
-          
+          <span class="space-before">W</span>
+          <span class="space-before">h</span>
+          <span class="space-before">e</span>
+          <span class="space-before">r</span>
+          <span class="space-before">e</span>
+          <span class="space-mid"></span>
+          <span class="space-before">E</span>
+          <span class="space-before">v</span>
+          <span class="space-before">e</span>
+          <span class="space-before">r</span>
+          <span class="space-before">y</span>
+          <span class="space-mid"></span> 
+          <span class="space-before">S</span>
+          <span class="space-before">e</span>
+          <span class="space-before">c</span>
+          <span class="space-before">o</span>
+          <span class="space-before">n</span>
+          <span class="space-before">d</span>
+          <span class="space-mid"></span> 
+          <span class="space-before">C</span>
+          <span class="space-before">o</span>
+          <span class="space-before">u</span>
+          <span class="space-before">n</span>
+          <span class="space-before">t</span>
+          <span class="space-before">s</span>
+          <span class="space-end">.</span> 
         </h2>
       </header>
       <section class="about-text">
@@ -49,6 +49,7 @@
     </div>
   </div>
 </template>
+
 
 
 <style scoped>
@@ -65,6 +66,7 @@
   flex: 1;
   max-width: 50%;
   margin-right: 30px;
+  position: relative; /* Ensure the clock container is positioned correctly */
 }
 
 .about-image img {
@@ -72,6 +74,29 @@
   height: auto;
   border-radius: 10px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.clock {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 150px; /* Size of the clock container */
+  height: 150px; /* Size of the clock container */
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.second-hand {
+  position: absolute;
+  width: 2px; /* Adjust the width for the hand's thickness */
+  height: 97px; /* Adjust the length of the hand */
+  background: #b9bcc1; /* Color of the hand */
+  top: -3.1%;
+  left: 50%;
+  transform-origin: bottom center;
+  transform: rotate(0deg);
+  animation: tick 60s linear infinite;
+  border-radius: 50% 50% 0 0;
 }
 
 .about-content {
@@ -147,6 +172,15 @@
   }
 }
 
+@keyframes tick {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 @media (max-width: 768px) {
   .about {
     flex-direction: column;
@@ -161,7 +195,6 @@
     width: 100%;
   }
 }
-
 
 .animated-heading span {
   display: inline-block;
@@ -213,10 +246,4 @@
 .animated-heading span:nth-child(18) { animation-delay: 1.7s; }
 .animated-heading span:nth-child(19) { animation-delay: 1.8s; }
 .animated-heading span:nth-child(20) { animation-delay: 1.9s; }
-.animated-heading span:nth-child(21) { animation-delay: 2.1s; }
-.animated-heading span:nth-child(22) { animation-delay: 2.3s; }
-.animated-heading span:nth-child(23) { animation-delay: 2.5s; }
-.animated-heading span:nth-child(24) { animation-delay: 2.6s; }
-.animated-heading span:nth-child(25) { animation-delay: 3.2s; }
-
 </style>
