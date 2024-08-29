@@ -90,7 +90,7 @@
   position: absolute;
   width: 2px; /* Adjust the width for the hand's thickness */
   height: 97px; /* Adjust the length of the hand */
-  background: #b9bcc1; /* Color of the hand */
+  background: #b9bcc1; 
   top: -3.1%;
   left: 50%;
   transform-origin: bottom center;
@@ -124,7 +124,6 @@
   color: #847272;
   letter-spacing: 2px;
   text-transform: uppercase;
-  animation: textGlow 2s ease-in-out infinite alternate;
   text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff;
 }
 
