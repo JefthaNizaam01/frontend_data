@@ -5,20 +5,48 @@
     </div>
     <div class="about-content">
       <header class="about-header">
-        <h1>About Us</h1>
-        <h2>Where Every Second Counts.</h2>
+        <h1 class="animated-heading">About Us</h1>
+        <h2 class="animated-heading">
+          <span>W</span>
+          <span>h</span>
+          <span>e</span>
+          <span>r</span>
+          <span>e</span>
+          <span> </span>
+          <span>E</span>
+          <span>v</span>
+          <span>e</span>
+          <span>r</span>
+          <span>y</span>
+          <span> </span>
+          <span>S</span>
+          <span>e</span>
+          <span>c</span>
+          <span>o</span>
+          <span>n</span>
+          <span>d</span>
+          <span> </span>
+          <span>C</span>
+          <span>o</span>
+          <span>u</span>
+          <span>n</span>
+          <span>t</span>
+          <span>s</span>
+          <span>.</span>
+        </h2>
       </header>
       <section class="about-text">
         <p>
           At Timeless, we believe that every moment is precious. Our e-commerce store is dedicated to more than just selling watches; we are committed to celebrating the art of timekeeping. In a world where time seems to slip through our fingers faster than we realize, Timeless serves as a reminder to cherish each fleeting second.
         </p>
         <p>
-          At Timeless, we understand that time is one of the most valuable resources we have. We strive to offer you watches that are more than just accessories—they are symbols of the moments that shape our lives. Discover watches that resonate with your style and appreciate the beauty of time with Timeless. 
+          At Timeless, we understand that time is one of the most valuable resources we have. We strive to offer you watches that are more than just accessories—they are symbols of the moments that shape our lives. Discover watches that resonate with your style and appreciate the beauty of time with Timeless.
         </p>
       </section>
     </div>
   </div>
 </template>
+
 
 <style scoped>
 .about {
@@ -79,6 +107,7 @@
   font-family: 'Garamond', serif;
   font-style: italic;
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+  word-spacing: 40px;
 }
 
 .about-text {
@@ -90,6 +119,7 @@
   font-size: 18px;
   line-height: 1.6;
   color: #555;
+  text-shadow: 0 0 10px white, 0 0 20px white, 0 0 30px white;
   font-family: 'Georgia', serif;
 }
 
@@ -127,4 +157,50 @@
     width: 100%;
   }
 }
+
+
+.animated-heading span {
+  display: inline-block;
+  opacity: 0;
+  animation: letterAnimation 1s forwards;
+  letter-spacing: 3px;
+}
+
+@keyframes letterAnimation {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animated-heading span:nth-child(1) { animation-delay: 0s; }
+.animated-heading span:nth-child(2) { animation-delay: 0.1s; }
+.animated-heading span:nth-child(3) { animation-delay: 0.2s; }
+.animated-heading span:nth-child(4) { animation-delay: 0.3s; }
+.animated-heading span:nth-child(5) { animation-delay: 0.4s; }
+.animated-heading span:nth-child(6) { animation-delay: 0.5s; }
+.animated-heading span:nth-child(7) { animation-delay: 0.6s; }
+.animated-heading span:nth-child(8) { animation-delay: 0.7s; }
+.animated-heading span:nth-child(9) { animation-delay: 0.8s; }
+.animated-heading span:nth-child(10) { animation-delay: 0.9s; }
+.animated-heading span:nth-child(11) { animation-delay: 1s; }
+.animated-heading span:nth-child(12) { animation-delay: 1.1s; }
+.animated-heading span:nth-child(13) { animation-delay: 1.2s; }
+.animated-heading span:nth-child(14) { animation-delay: 1.3s; }
+.animated-heading span:nth-child(15) { animation-delay: 1.4s; }
+.animated-heading span:nth-child(16) { animation-delay: 1.5s; }
+.animated-heading span:nth-child(17) { animation-delay: 1.6s; }
+.animated-heading span:nth-child(18) { animation-delay: 1.7s; }
+.animated-heading span:nth-child(19) { animation-delay: 1.8s; }
+.animated-heading span:nth-child(20) { animation-delay: 1.9s; }
+.animated-heading span:nth-child(21) { animation-delay: 2.1s; }
+.animated-heading span:nth-child(22) { animation-delay: 2.3s; }
+.animated-heading span:nth-child(23) { animation-delay: 2.5s; }
+.animated-heading span:nth-child(24) { animation-delay: 2.6s; }
+.animated-heading span:nth-child(25) { animation-delay: 3.2s; }
+
 </style>
