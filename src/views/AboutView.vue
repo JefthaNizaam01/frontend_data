@@ -7,32 +7,35 @@
       <header class="about-header">
         <h1 class="animated-heading">About Us</h1>
         <h2 class="animated-heading">
-          <span>W</span>
-          <span>h</span>
-          <span>e</span>
-          <span>r</span>
-          <span>e</span>
-          <span> </span>
-          <span>E</span>
-          <span>v</span>
-          <span>e</span>
-          <span>r</span>
-          <span>y</span>
-          <span> </span>
-          <span>S</span>
-          <span>e</span>
-          <span>c</span>
-          <span>o</span>
-          <span>n</span>
-          <span>d</span>
-          <span> </span>
-          <span>C</span>
-          <span>o</span>
-          <span>u</span>
-          <span>n</span>
-          <span>t</span>
-          <span>s</span>
-          <span>.</span>
+          <h2 class="animated-heading">
+            <span class="space-before">W</span>
+            <span class="space-before">h</span>
+            <span class="space-before">e</span>
+            <span class="space-before">r</span>
+            <span class="space-before">e</span>
+            <span class="space-mid"></span> <!-- Space between 'e' and 'E' -->
+            <span class="space-before">E</span>
+            <span class="space-before">v</span>
+            <span class="space-before">e</span>
+            <span class="space-before">r</span>
+            <span class="space-before">y</span>
+            <span class="space-mid"></span> <!-- Space between 'y' and 'S' -->
+            <span class="space-before">S</span>
+            <span class="space-before">e</span>
+            <span class="space-before">c</span>
+            <span class="space-before">o</span>
+            <span class="space-before">n</span>
+            <span class="space-before">d</span>
+            <span class="space-mid"></span> <!-- Space between 'd' and 'C' -->
+            <span class="space-before">C</span>
+            <span class="space-before">o</span>
+            <span class="space-before">u</span>
+            <span class="space-before">n</span>
+            <span class="space-before">t</span>
+            <span class="space-before">s</span>
+            <span class="space-end">.</span> <!-- Space at the end -->
+          </h2>
+          
         </h2>
       </header>
       <section class="about-text">
@@ -107,7 +110,7 @@
   font-family: 'Garamond', serif;
   font-style: italic;
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
-  word-spacing: 40px;
+  word-spacing: 15px;
 }
 
 .about-text {
@@ -163,7 +166,7 @@
   display: inline-block;
   opacity: 0;
   animation: letterAnimation 1s forwards;
-  letter-spacing: 3px;
+  letter-spacing: 4px;
 }
 
 @keyframes letterAnimation {
@@ -175,6 +178,18 @@
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+.space-before {
+  margin-right: 3px;
+}
+
+.space-mid {
+  margin: 0 4px; 
+}
+
+.space-end {
+  margin-left: 3px; 
 }
 
 .animated-heading span:nth-child(1) { animation-delay: 0s; }
