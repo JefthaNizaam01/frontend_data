@@ -245,4 +245,10 @@
 .animated-heading span:nth-child(18) { animation-delay: 1.7s; }
 .animated-heading span:nth-child(19) { animation-delay: 1.8s; }
 .animated-heading span:nth-child(20) { animation-delay: 1.9s; }
+.animated-heading span:nth-child(21) { animation-delay: 2.1s; }
+.animated-heading span:nth-child(22) { animation-delay: 2.3s; }
+.animated-heading span:nth-child(23) { animation-delay: 2.5s; }
+.animated-heading span:nth-child(24) { animation-delay: 2.6s; }
+.animated-heading span:nth-child(25) { animation-delay: 2.7s; }
+.animated-heading span:nth-child(26) { animation-delay: 2.8s; }
 </style>
