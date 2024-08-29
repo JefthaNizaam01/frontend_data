@@ -13,27 +13,27 @@
             <span class="space-before">e</span>
             <span class="space-before">r</span>
             <span class="space-before">e</span>
-            <span class="space-mid"></span> <!-- Space between 'e' and 'E' -->
+            <span class="space-mid"></span>
             <span class="space-before">E</span>
             <span class="space-before">v</span>
             <span class="space-before">e</span>
             <span class="space-before">r</span>
             <span class="space-before">y</span>
-            <span class="space-mid"></span> <!-- Space between 'y' and 'S' -->
+            <span class="space-mid"></span> 
             <span class="space-before">S</span>
             <span class="space-before">e</span>
             <span class="space-before">c</span>
             <span class="space-before">o</span>
             <span class="space-before">n</span>
             <span class="space-before">d</span>
-            <span class="space-mid"></span> <!-- Space between 'd' and 'C' -->
+            <span class="space-mid"></span> 
             <span class="space-before">C</span>
             <span class="space-before">o</span>
             <span class="space-before">u</span>
             <span class="space-before">n</span>
             <span class="space-before">t</span>
             <span class="space-before">s</span>
-            <span class="space-end">.</span> <!-- Space at the end -->
+            <span class="space-end">.</span> 
           </h2>
           
         </h2>
@@ -100,6 +100,7 @@
   letter-spacing: 2px;
   text-transform: uppercase;
   animation: textGlow 2s ease-in-out infinite alternate;
+  text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff;
 }
 
 .about-header h2 {
@@ -109,7 +110,7 @@
   margin-bottom: 40px;
   font-family: 'Garamond', serif;
   font-style: italic;
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+  text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff;
   word-spacing: 15px;
 }
 
