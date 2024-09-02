@@ -43,7 +43,7 @@
   
   <style scoped>
   .retro-container {
-    background-color: #001f3f; 
+    background-color: #d2c9c2; 
     color: #ffffff; 
     min-height: 100vh; 
     padding: 20px;
@@ -52,10 +52,10 @@
   
   .retro-heading {
     font-size: 5.5em;
-    font-family: 'VT323', monospace;
+    font-family:'Playfair Display', serif; 
     margin: 0;
-    color: #5690ca ; 
-    text-shadow: 0 0 5px #001f3f, 0 0 10px #dae4ed; 
+    color: #8b7c71 ; 
+    text-shadow: 0 0 5px #c1b5ab, 0 0 10px #dae4ed; 
     animation: flicker 3.5s infinite; 
   }
   
