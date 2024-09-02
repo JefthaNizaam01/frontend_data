@@ -66,7 +66,7 @@
   flex: 1;
   max-width: 50%;
   margin-right: 30px;
-  position: relative; /* Ensure the clock container is positioned correctly */
+  position: relative; 
 }
 
 .about-image img {
@@ -80,16 +80,16 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 150px; /* Size of the clock container */
-  height: 150px; /* Size of the clock container */
+  width: 150px; 
+  height: 150px;
   border-radius: 50%;
   transform: translate(-50%, -50%);
 }
 
 .second-hand {
   position: absolute;
-  width: 2px; /* Adjust the width for the hand's thickness */
-  height: 97px; /* Adjust the length of the hand */
+  width: 2px; 
+  height: 97px; 
   background: #b9bcc1; 
   top: -3.1%;
   left: 50%;

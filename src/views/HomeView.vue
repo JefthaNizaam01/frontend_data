@@ -398,6 +398,8 @@ body {
   transform-origin: bottom center;
   transform: rotate(0deg);
   animation: tick 60s linear infinite;
+  border-radius: 50% 50% 0 0;
+  box-shadow: 0 0 5px black;
 }
 
 @keyframes tick {
