@@ -309,6 +309,7 @@ export default {
 <style scoped>
 .admin-page {
   padding: 20px;
+  background: linear-gradient(to bottom right, #d5cdc2, #f4e8dc); 
 }
 .profile-image, .product-image {
   width: 50px;
