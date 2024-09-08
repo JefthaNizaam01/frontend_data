@@ -6,7 +6,7 @@ import router from '@/router';
 import { applyToken } from '@/service/AuthenticatedUser.js';
 import { useCookies } from 'vue3-cookies';
 const { cookies } = useCookies();
-const apiURL = 'https://capstone-3-d7nl.onrender.com';
+const apiURL = 'https://capstone-1-jt5d.onrender.com/';
 
 export default createStore({
   state: {
@@ -207,7 +207,16 @@ async login({ commit }, payload) {
     router.push('/');
   },
       
-
+// logout({ commit }) {
+//   commit('setAuthenticated', false);
+//   commit('setUserRole', null);
+// },
+    // async logout(context) {
+    //   context.commit('clearToken');
+    //   context.commit('setUser', null);
+    //   cookies.remove('LegitUser');
+    //   router.push({ name: 'auth-options' });
+    // },
 
     // ==== Product =====
     async fetchProducts(context) {
