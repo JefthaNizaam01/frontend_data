@@ -1,31 +1,31 @@
 <template>
-  <div class="admin-page">
-
-    <section class="users-section">
-      <h1>Admin - Users</h1>
-      <button class="btn btn-primary" @click="openAddUserModal">Add User</button>
-
-      <div class="search-filter">
-        <input v-model="searchQuery" class="search-input" placeholder="Search Users by name" />
-      </div>
-
-      <div v-if="loadingUsers" class="loading">Loading Users...</div>
-      <table v-else class="admin-table">
-        <thead>
+  <div>
+    <NavBar/>
+    <!-- Loading Spinner -->
+    <div v-if="loading" class="loading-spinner">
+      <SpinnerComp />
+    </div>
+    <!-- USERS TABLE -->
+    <h2>Users Table</h2>
+    <addUser/>
+    <div class="container table-responsive">
+      <div class="col"></div>
+      <table class="table users-table" v-if="!loading && users">
+        <thead class="table-dark">
           <tr>
-            <th @click="sortByUser('userID')">ID</th>
-            <th @click="sortByUser('firstName')">First Name</th>
-            <th @click="sortByUser('lastName')">Last Name</th>
-            <th @click="sortByUser('userAge')">Age</th>
-            <th @click="sortByUser('Gender')">Gender</th>
-            <th @click="sortByUser('userRole')">Role</th>
-            <th @click="sortByUser('emailAdd')">Email</th>
-            <th>Profile Image</th>
-            <th>Actions</th>
+            <th>User ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>User Age</th>
+            <th>Gender</th>
+            <th>User Role</th>
+            <th>Email Address</th>
+            <th>User Profile</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="user in sortedFilteredUsers" :key="user.userID">
+          <tr v-for="user in users" :key="user.userID">
             <td>{{ user.userID }}</td>
             <td>{{ user.firstName }}</td>
             <td>{{ user.lastName }}</td>
@@ -33,338 +33,260 @@
             <td>{{ user.Gender }}</td>
             <td>{{ user.userRole }}</td>
             <td>{{ user.emailAdd }}</td>
-            <td><img :src="user.userProfile" alt="" class="profile-image"></td>
             <td>
-              <button class="btn btn-secondary" @click="editUser(user)">Update</button>
-              <button class="btn btn-danger" @click="handleDeleteUser(user.userID)">Delete</button>
+              <a :href="user.userProfile" target="_blank">
+                <img :src="user.userProfile" alt="User Profile" width="50">
+              </a>
+            </td>
+            <td>
+              <updateUser :user="user" />
+              <button class="btn btn-danger deleteButton" @click="deleteUser(user.userID)">Delete</button>
             </td>
           </tr>
         </tbody>
       </table>
+    </div>
 
-      <AppModal v-if="showAddUserModal || showEditUserModal" class="modal">
-        <template #header>
-          <h2>{{ isEditing ? 'Update User' : 'Add User' }}</h2>
-        </template>
-        <template #body>
-          <form @submit.prevent="isEditing ? handleUpdateUser() : handleAddUser()">
-            <div class="form-group">
-              <label for="firstName">First Name:</label>
-              <input type="text" v-model="formUser.firstName" required>
-            </div>
-            <div class="form-group">
-              <label for="lastName">Last Name:</label>
-              <input type="text" v-model="formUser.lastName" required>
-            </div>
-            <div class="form-group">
-              <label for="userAge">Age:</label>
-              <input type="number" v-model="formUser.userAge" required>
-            </div>
-            <div class="form-group">
-              <label for="Gender">Gender:</label>
-              <input type="text" v-model="formUser.Gender" required>
-            </div>
-            <div class="form-group">
-              <label for="userRole">Role:</label>
-              <input type="text" v-model="formUser.userRole" required>
-            </div>
-            <div class="form-group">
-              <label for="emailAdd">Email:</label>
-              <input type="email" v-model="formUser.emailAdd" required>
-            </div>
-            <div class="form-group">
-              <label for="userPass">Password:</label>
-              <input type="password" v-model="formUser.userPass" required>
-            </div>
-            <div class="form-group">
-              <label for="userProfile">Profile Image URL:</label>
-              <input type="text" v-model="formUser.userProfile" required>
-            </div>
-            <div class="modal-actions">
-              <button type="submit" class="btn btn-primary">{{ isEditing ? 'Update' : 'Add' }}</button>
-              <button type="button" class="btn btn-secondary" @click="closeUserModal">Cancel</button>
-            </div>
-          </form>
-        </template>
-      </AppModal>
-    </section>
-
-   
-    <section class="products-section">
-      <h1>Admin - Products</h1>
-      <button class="btn btn-primary" @click="openAddProductModal">Add Product</button>
-
-      <div class="search-filter">
-        <input v-model="searchQueryProduct" class="search-input" placeholder="Search Products by name" />
-        <select v-model="selectedCategory" class="category-select">
-          <option value="">All Categories</option>
-          <option v-for="category in categories" :key="category" :value="category">{{ category }}</option>
-        </select>
-        <select v-model="priceSortOrder" class="price-sort-select">
-          <option value="">Sort by Price</option>
-          <option value="asc">Lowest to Highest</option>
-          <option value="desc">Highest to Lowest</option>
-        </select>
-      </div>
-
-      <div v-if="loadingProducts" class="loading">Loading Products...</div>
-      <table v-else class="admin-table">
-        <thead>
+    <!-- PRODUCTS TABLE -->
+    <h2>Products Table</h2>
+    <addProduct/>
+    <div class="container table-responsive">
+      <table class="table products-table" v-if="!loading && products">
+        <thead class="table-dark">
           <tr>
-            <th @click="sortByProduct('prodID')">ID</th>
-            <th @click="sortByProduct('prodName')">Name</th>
-            <th @click="sortByProduct('quantity')">Quantity</th>
-            <th @click="sortByProduct('amount')">Amount</th>
-            <th @click="sortByProduct('Category')">Category</th>
-            <th>Image</th>
-            <th>Actions</th>
+            <th>Product ID</th>
+            <th>Product Name</th>
+            <th>Amount</th>
+            <th>Category</th>
+            <th>Product URL</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="product in sortedFilteredProducts" :key="product.prodID">
+          <tr v-for="product in products" :key="product.prodID">
             <td>{{ product.prodID }}</td>
             <td>{{ product.prodName }}</td>
-            <td>{{ product.quantity }}</td>
-            <td>{{ product.amount }}</td>
-            <td>{{ product.Category }}</td>
-            <td><img :src="product.prodUrl" alt="" class="product-image"></td>
+            <td>R {{ product.amount }}</td>
+            <td> {{ product.Category }}</td>
             <td>
-              <button class="btn btn-secondary" @click="editProduct(product)">Update</button>
-              <button class="btn btn-danger" @click="handleDeleteProduct(product.prodID)">Delete</button>
+              <a :href="product.prodURL" target="_blank">
+                <img :src="product.prodURL" alt="Product Image" width="50">
+              </a>
+            </td>
+            <td>
+              <updateProduct :product="product"/>
+              <button class="btn btn-danger deleteButton" @click.prevent="deleteProduct(product.prodID)">Delete</button>
             </td>
           </tr>
         </tbody>
       </table>
-
-      <AppModal v-if="showAddProductModal || showEditProductModal" class="modal">
-        <template #header>
-          <h2>{{ isEditingProduct ? 'Update Product' : 'Add Product' }}</h2>
-        </template>
-        <template #body>
-          <form @submit.prevent="isEditingProduct ? handleUpdateProduct() : handleAddProduct()">
-            <div class="form-group">
-              <label for="prodName">Name:</label>
-              <input type="text" v-model="formProduct.prodName" required>
-            </div>
-            <div class="form-group">
-              <label for="quantity">Quantity:</label>
-              <input type="number" v-model="formProduct.quantity" required>
-            </div>
-            <div class="form-group">
-              <label for="amount">Amount:</label>
-              <input type="text" v-model="formProduct.amount" required>
-            </div>
-            <div class="form-group">
-              <label for="category">Category:</label>
-              <input type="text" v-model="formProduct.Category" required>
-            </div>
-            <div class="form-group">
-              <label for="prodUrl">Image URL:</label>
-              <input type="text" v-model="formProduct.prodUrl" required>
-            </div>
-            <div class="modal-actions">
-              <button type="submit" class="btn btn-primary">{{ isEditingProduct ? 'Update' : 'Add' }}</button>
-              <button type="button" class="btn btn-secondary" @click="closeProductModal">Cancel</button>
-            </div>
-          </form>
-        </template>
-      </AppModal>
-    </section>
+    </div>
+  </div>
+  <div>
   </div>
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex'
-import AppModal from '@/components/AppModal.vue'
+import updateUser from '@/components/UserUpdate.vue';
+import updateProduct from '@/components/ProductUpdate.vue';
+import addProduct from '@/components/ProductAdd.vue';
+import addUser from '@/components/UserAdd.vue';
+import SpinnerComp from '@/components/SpinnerComp.vue';
 
 export default {
-  components: { AppModal },
+  components: {
+    updateUser,
+    updateProduct,
+    addProduct,
+    addUser,
+    SpinnerComp,
+  },
   data() {
     return {
-      formUser: {
-        userID: null,
-        firstName: '',
-        lastName: '',
-        userAge: '',
-        Gender: '',
-        userRole: '',
-        emailAdd: '',
-        userPass: '',
-        userProfile: ''
-      },
-      showAddUserModal: false,
-      showEditUserModal: false,
-      isEditing: false,
-      searchQuery: '',
-    
-      formProduct: {
-        prodID: null,
-        prodName: '',
-        quantity: '',
-        amount: '',
-        Category: '',
-        prodUrl: ''
-      },
-      showAddProductModal: false,
-      showEditProductModal: false,
-      isEditingProduct: false,
-      searchQueryProduct: '',
-      selectedCategory: '',
-      priceSortOrder: '',
-      userSortKey: 'userID',
-      productSortKey: 'prodID',
-      sortDirection: 'asc'
-    }
+      loading: true,
+    };
   },
   computed: {
-    ...mapState(['users', 'products', 'loadingUsers', 'loadingProducts']),
-    categories() {
-      return [...new Set(this.products.map(p => p.Category))]
+    products() {
+      return this.$store.state.products;
     },
-    sortedFilteredUsers() {
-      return this.users
-        .filter(user => user.firstName.toLowerCase().includes(this.searchQuery.toLowerCase()) || user.lastName.toLowerCase().includes(this.searchQuery.toLowerCase()))
-        .sort((a, b) => {
-          const key = this.userSortKey
-          if (a[key] < b[key]) return this.sortDirection === 'asc' ? -1 : 1
-          if (a[key] > b[key]) return this.sortDirection === 'asc' ? 1 : -1
-          return 0
-        })
-    },
-    sortedFilteredProducts() {
-      return this.products
-        .filter(product => product.prodName.toLowerCase().includes(this.searchQueryProduct.toLowerCase()))
-        .filter(product => this.selectedCategory ? product.Category === this.selectedCategory : true)
-        .sort((a, b) => {
-          if (this.priceSortOrder === 'asc') return a.amount - b.amount
-          if (this.priceSortOrder === 'desc') return b.amount - a.amount
-          return 0
-        })
-    }
-  },
-  methods: {
-    ...mapActions(['fetchUsers', 'fetchProducts', 'addUser', 'updateUser', 'deleteUser', 'addProduct', 'updateProduct', 'deleteProduct']),
-    openAddUserModal() {
-      this.showAddUserModal = true
-      this.isEditing = false
-      this.formUser = { userID: null, firstName: '', lastName: '', userAge: '', Gender: '', userRole: '', emailAdd: '', userPass: '', userProfile: '' }
-    },
-    openAddProductModal() {
-      this.showAddProductModal = true
-      this.isEditingProduct = false
-      this.formProduct = { prodID: null, prodName: '', quantity: '', amount: '', Category: '', prodUrl: '' }
-    },
-    editUser(user) {
-      this.formUser = { ...user }
-      this.showEditUserModal = true
-      this.isEditing = true
-    },
-    editProduct(product) {
-      this.formProduct = { ...product }
-      this.showEditProductModal = true
-      this.isEditingProduct = true
-    },
-    handleAddUser() {
-      this.addUser(this.formUser).then(() => this.closeUserModal())
-    },
-    handleUpdateUser() {
-      this.updateUser(this.formUser).then(() => this.closeUserModal())
-    },
-    handleDeleteUser(userID) {
-      this.deleteUser(userID)
-    },
-    handleAddProduct() {
-      this.addProduct(this.formProduct).then(() => this.closeProductModal())
-    },
-    handleUpdateProduct() {
-      this.updateProduct(this.formProduct).then(() => this.closeProductModal())
-    },
-    handleDeleteProduct(prodID) {
-      this.deleteProduct(prodID)
-    },
-    closeUserModal() {
-      this.showAddUserModal = false
-      this.showEditUserModal = false
-    },
-    closeProductModal() {
-      this.showAddProductModal = false
-      this.showEditProductModal = false
-    },
-    sortByUser(key) {
-      this.userSortKey = key
-      this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc'
-    },
-    sortByProduct(key) {
-      this.productSortKey = key
-      this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc'
+    users() {
+      return this.$store.state.users;
     }
   },
   mounted() {
-    this.fetchUsers()
-    this.fetchProducts()
+    this.loadData();
+  },
+  methods: {
+    async loadData() {
+      try {
+        await Promise.all([
+          this.$store.dispatch('fetchProducts'),
+          this.$store.dispatch('fetchUsers')
+        ]);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      } finally {
+        this.loading = false; // Hide spinner when data is loaded
+      }
+    },
+    deleteUser(userID) {
+      this.$store.dispatch('deleteUser', userID);
+    },
+    deleteProduct(prodID) {
+      this.$store.dispatch('deleteProduct', prodID);
+    },
+    updateUser(user) {
+      let editUser = {
+        userID: user.userID,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        userAge: user.userAge,
+        Gender: user.Gender,
+        userRole: user.userRole,
+        emailAdd: user.emailAdd,
+        userPass: user.userPass,
+        userProfile: user.userProfile,
+      };
+      this.$store.dispatch('UserUpdate', { id: user.userID, data: editUser });
+    },
+    updateProduct(product) {
+      let editProduct = {
+        productID: product.prodID,
+        productName: product.prodName,
+        amount: product.amount,
+        category: product.category,
+        prodURL: product.prodURL,
+      };
+      this.$store.dispatch('updateProduct', { id: product.prodID, data: editProduct });
+    }
   }
 }
 </script>
 
 <style scoped>
-.admin-page {
-  padding: 20px;
-  background: linear-gradient(to bottom right, #d5cdc2, #f4e8dc); 
-}
-.profile-image, .product-image {
-  width: 50px;
-  height: 50px;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-table, th, td {
-  border: 1px solid #ddd;
-}
-
-th, td {
-  padding: 8px;
-  text-align: left;
-}
-
-th {
-  background-color: #f2f2f2;
-  cursor: pointer;
-}
-
-button {
-  margin: 5px;
-  padding: 10px 15px;
-  border: none;
-  border-radius: 4px;
-  background-color: black;
-  color: white;
-  cursor: pointer;
-  font-weight: bold;
-  transition: background-color 0.3s ease;
-}
-
-button:hover {
-  background-color: grey;
-}
-
-.modal-actions {
+/* Center and overlay the spinner */
+.loading-spinner {
+  position: fixed; /* Fixed positioning to overlay the content */
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5); /* Darkened background */
   display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
+  justify-content: center;
+  align-items: center;
+  z-index: 1050; /* Higher z-index to be on top of other content */
 }
 
-.form-group {
-  margin-bottom: 15px;
+/* Responsive Styles for Users Table */
+@media (max-width: 768px) {
+  .users-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .users-table thead {
+    display: none;
+  }
+  .users-table tr {
+    display: block;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+  }
+  .users-table td {
+    display: block;
+    text-align: right;
+    font-size: 13px;
+    border-bottom: 1px dotted #ccc;
+    padding: 10px;
+    position: relative;
+  }
+  .users-table td:before {
+    content: attr(data-label);
+    float: left;
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+  .users-table td:last-child {
+    border-bottom: 0;
+  }
+  .users-table td:nth-child(1):before {
+    content: "User ID";
+  }
+  .users-table td:nth-child(2):before {
+    content: "First Name";
+  }
+  .users-table td:nth-child(3):before {
+    content: "Last Name";
+  }
+  .users-table td:nth-child(4):before {
+    content: "User Age";
+  }
+  .users-table td:nth-child(5):before {
+    content: "Gender";
+  }
+  .users-table td:nth-child(6):before {
+    content: "User Role";
+  }
+  .users-table td:nth-child(7):before {
+    content: "Email Address";
+  }
+  .users-table td:nth-child(8):before {
+    content: "User Profile";
+  }
+  .users-table td:nth-child(9):before {
+    content: "Action";
+  }
 }
 
-input[type="text"], input[type="number"] {
-  width: 100%;
-  padding: 8px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+/* Responsive Styles for Products Table */
+@media (max-width: 768px) {
+  .products-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .products-table thead {
+    display: none;
+  }
+  .products-table tr {
+    display: block;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+  }
+  .products-table td {
+    display: block;
+    text-align: right;
+    font-size: 13px;
+    border-bottom: 1px dotted #ccc;
+    padding: 10px;
+    position: relative;
+  }
+  .products-table td:before {
+    content: attr(data-label);
+    float: left;
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+  .products-table td:last-child {
+    border-bottom: 0;
+  }
+  .products-table td:nth-child(1):before {
+    content: "Product ID";
+  }
+  .products-table td:nth-child(2):before {
+    content: "Product Name";
+  }
+  .products-table td:nth-child(3):before {
+    content: "Amount";
+  }
+  .products-table td:nth-child(4):before {
+    content: "Category";
+  }
+  .products-table td:nth-child(5):before {
+    content: "Product URL";
+  }
+  .products-table td:nth-child(6):before {
+    content: "Action";
+  }
 }
 </style>
